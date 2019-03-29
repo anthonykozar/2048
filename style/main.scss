@@ -164,6 +164,12 @@ hr {
   line-height: 42px;
 }
 
+#night {
+  float: left;
+  padding: 7px;
+  margin-top: 10px;
+}
+
 // Game field mixin used to render CSS at different width
 @mixin game-field {
   .game-container {
@@ -348,7 +354,8 @@ hr {
     font-weight: bold;
     z-index: 10;
 
-    font-size: 55px;
+    font-size: 45px;
+	// see mobile section below for font-size on small screens
   }
 
   // Movement transition
@@ -409,17 +416,17 @@ hr {
 
       // Adjust font size for bigger numbers
       @if $power >= 100 and $power < 1000 {
-        font-size: 45px;
+        font-size: 32px;
 
         // Media queries placed here to avoid carrying over the rest of the logic
         @include smaller($mobile-threshold) {
-          font-size: 25px;
+          font-size: 20px;
         }
       } @else if $power >= 1000 {
-        font-size: 35px;
+        font-size: 23px;
 
         @include smaller($mobile-threshold) {
-          font-size: 15px;
+          font-size: 14px;
         }
       }
     }
@@ -432,10 +439,10 @@ hr {
     color: $bright-text-color;
     background: mix(#333, $tile-gold-color, 95%);
 
-    font-size: 30px;
+    font-size: 15px;
 
     @include smaller($mobile-threshold) {
-      font-size: 10px;
+      font-size: 9px;
     }
   }
 }
@@ -482,8 +489,8 @@ hr {
 }
 
 .game-intro {
-  float: left;
   line-height: 42px;
+  margin-top: 5px;
   margin-bottom: 0;
   width: 285px;
   font-size: 14px;
@@ -495,6 +502,7 @@ hr {
   text-align: center;
   float: right;
   margin-left: 5px;
+  margin-top: 10px;
   font-size: 16px;
 }
 
@@ -505,7 +513,7 @@ hr {
 @include smaller($mobile-threshold) {
   // Redefine variables for smaller screens
   $field-width: 280px !global;
-  $grid-spacing: 10px !global;
+  $grid-spacing: 5px !global;
   $tile-size: ($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells !global;
   $tile-border-radius: 3px !global;
   $game-container-margin-top: 15px !global;
@@ -533,6 +541,7 @@ hr {
     margin-top: 0;
     padding: 15px 10px;
     min-width: 40px;
+    font-size: 16px;
   }
 
   .heading {
@@ -552,7 +561,6 @@ hr {
     padding: 0;
     display: block;
     box-sizing: border-box;
-    margin-top: 0px;
   }
 
   // Render the game field at the right width
@@ -560,7 +568,7 @@ hr {
 
   // Rest of the font-size adjustments in the tile class
   .tile .tile-inner {
-    font-size: 35px;
+    font-size: 26px;
   }
 
   .game-message {
