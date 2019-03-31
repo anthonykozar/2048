@@ -70,9 +70,10 @@ HTMLActuator.prototype.addTile = function (tile) {
   var inner     = document.createElement("div");
   var position  = tile.previousPosition || { x: tile.x, y: tile.y };
   var positionClass = this.positionClass(position);
-
+  var valueLength = tile.value.toString().length;
+  
   // We can't use classlist because it somehow glitches when replacing classes
-  var classes = ["tile", "tile-" + prime, positionClass];
+  var classes = ["tile", "tile-" + prime, positionClass, "tile-" + valueLength + "digit"];
 
   if (tile.value > 2048) classes.push("tile-super");
 
