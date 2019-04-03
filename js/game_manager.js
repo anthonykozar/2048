@@ -112,9 +112,7 @@ GameManager.prototype.addStartTiles = function () {
 // Adds a tile in a random position
 GameManager.prototype.addRandomTile = function () {
   if (this.grid.cellsAvailable()) {
-    var primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
-    var randomIndex = Math.floor(Math.random() * primes.length);
-    var value = primes[randomIndex];
+    var value = Math.random() < 0.9 ? 1 : 2;
     var tile = new Tile(this.grid.randomAvailableCell(), value);
 
     this.grid.insertTile(tile);
@@ -201,8 +199,8 @@ GameManager.prototype.move = function (direction) {
         var next      = self.grid.cellContent(positions.next);
 
         // Only one merger per row traversal?
-        if (next && next.value === tile.value && !next.mergedFrom) {
-          var merged = new Tile(positions.next, tile.value * 2);
+        if (next && self.tilesAreMergable(next, tile) && !next.mergedFrom) {
+          var merged = new Tile(positions.next, next.value + tile.value);
           merged.mergedFrom = [tile, next];
 
           self.grid.insertTile(merged);
@@ -214,8 +212,9 @@ GameManager.prototype.move = function (direction) {
           // Update the score
           self.score += merged.value;
 
-          // The mighty 2048 tile
-          if (merged.value >= 2048) self.won = true;
+          // 144 is the 12th Fibonacci number (corresponding to 2048) but is pretty easy to reach,
+          // so make the goal the 17th Fibonacci number: 1597.
+          if (merged.value >= 1597) self.won = true;
         } else {
           self.moveTile(tile, positions.farthest);
         }
@@ -283,6 +282,28 @@ GameManager.prototype.findFarthestPosition = function (cell, vector) {
   };
 };
 
+GameManager.prototype.tilesAreMergable = function (tile1, tile2) {
+  var fibonacci = [1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765];
+  
+  // 1 & 1 is a special case
+  if (tile1.value === 1 && tile2.value === 1)  return true;
+  
+  // find the index of tile1 in the fib sequence
+  var i = 0;
+  for ( ; i < fibonacci.length; ++i) {
+    if (tile1.value === fibonacci[i])  break;
+  }
+  if (i >= fibonacci.length) {
+    // tile1.value was not in the sequence!
+    return false;
+  }
+  
+  // check if tile2 is an adjacent fib number
+  if (i > 0 && tile2.value === fibonacci[i-1])  return true;
+  else if (i < fibonacci.length-1 && tile2.value === fibonacci[i+1])  return true;
+  else return false;
+};
+
 GameManager.prototype.movesAvailable = function () {
   return this.grid.cellsAvailable() || this.tileMatchesAvailable();
 };
@@ -304,7 +325,7 @@ GameManager.prototype.tileMatchesAvailable = function () {
 
           var other  = self.grid.cellContent(cell);
 
-          if (other && other.value === tile.value) {
+          if (other && self.tilesAreMergable(other, tile)) {
             return true; // These two tiles can be merged
           }
         }

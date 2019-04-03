@@ -8,7 +8,8 @@
 
 var Localizer = (function(lang) {
 	var defaultMsgs = {
-		intro : 'Join the numbers and get to the <strong>2048 tile!</strong>',
+		intro : 'Join consecutive Fibonacci numbers and get to the <strong>1597 tile!</strong>',
+		sequence : 'Fibonacci sequence:',
 		new_game : 'New Game',
 		undo : 'Undo',
 		keep_going : 'Keep going',
@@ -28,7 +29,8 @@ var Localizer = (function(lang) {
 	switch (this.lang) {
 	case 'ru':
 		localizedMsgs = {
-			intro : 'Объединяйте числа и получите <strong>2048!</strong>',
+			intro : 'Объединяйте числа и получите <strong>1597!</strong>',
+			sequence : 'Fibonacci sequence:',
 			new_game : 'Новая игра',
 			undo : 'Отменить ход',
 			keep_going : 'Продолжайте',
@@ -43,7 +45,8 @@ var Localizer = (function(lang) {
 		break;
 	case 'uk':
 		localizedMsgs = {
-			intro : 'Об\'єднуйте числа і отримаєте <strong>2048!</strong>',
+			intro : 'Об\'єднуйте числа і отримаєте <strong>1597!</strong>',
+			sequence : 'Fibonacci sequence:',
 			new_game : 'Нова гра',
 			undo : 'Скасувати хід',
 			keep_going : 'Продовжуйте',

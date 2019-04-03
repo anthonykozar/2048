@@ -513,10 +513,8 @@ hr {
   clear: both; }
 
 .game-intro {
-  line-height: 42px;
   margin-top: 5px;
   margin-bottom: 0;
-  width: 285px;
   font-size: 14px; }
 
 .restart-button, .undo-button {
@@ -564,10 +562,8 @@ hr {
     margin-bottom: 5px; }
 
   .game-intro {
-    width: 100%;
-    display: block;
     box-sizing: border-box;
-    line-height: 1.65; }
+    line-height: 1.25; }
 
   .restart-button {
     width: 42%;
